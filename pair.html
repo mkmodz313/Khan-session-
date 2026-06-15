@@ -3,749 +3,651 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MKMODZ-MD SESSION</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+    <title>MKMODZ-MD | PRO SESSION</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
     <style>
+      /* --- 1. CORE VARIABLES & RESET --- */
       :root {
-        --primary-color: #1a1a2e;
-        --secondary-color: #16213e;
-        --accent-color: #0f3460;
-        --text-color: #f1f1f1;
-        --background-color: #121212;
-        --hover-color: #2d2d44;
-        --border-color: rgba(255, 255, 255, 0.08);
-        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --success-color: #4ade80;
-        --card-bg: rgba(255, 255, 255, 0.02);
+        --bg-dark: #050505;
+        --bg-card: rgba(20, 20, 25, 0.6);
+        --primary-gradient: linear-gradient(135deg, #FF0080, #7928CA);
+        --secondary-gradient: linear-gradient(135deg, #00DFD8, #007CF0);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #ffffff;
+        --text-dim: rgba(255, 255, 255, 0.6);
+        --neon-blue: #00f3ff;
+        --neon-purple: #bc13fe;
+        --card-radius: 32px;
       }
 
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        outline: none;
       }
 
       body {
-        font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        color: var(--text-color);
+        font-family: 'Outfit', sans-serif;
+        background-color: var(--bg-dark);
         min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 15px;
-        backdrop-filter: blur(20px);
-      }
-
-      .container {
-        width: 100%;
-        max-width: 450px;
-        background: var(--card-bg);
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 
-          0 20px 60px rgba(0, 0, 0, 0.5),
-          0 0 0 1px rgba(255, 255, 255, 0.05),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        overflow-x: hidden;
+        perspective: 1000px; /* For 3D effect */
         position: relative;
-        overflow: hidden;
       }
 
-      .container::before {
-        content: '';
-        position: absolute;
+      /* --- 2. ANIMATED BACKGROUND MESH --- */
+      .ambient-light {
+        position: fixed;
         top: 0;
         left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000000 100%);
       }
 
-      .header {
-        text-align: center;
-        margin-bottom: 30px;
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: floatOrb 20s infinite ease-in-out alternate;
+      }
+
+      .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: var(--neon-purple);
+        top: -100px;
+        left: -100px;
+      }
+
+      .orb-2 {
+        width: 400px;
+        height: 400px;
+        background: var(--neon-blue);
+        bottom: -50px;
+        right: -50px;
+        animation-delay: -5s;
+      }
+
+      .orb-3 {
+        width: 300px;
+        height: 300px;
+        background: #ff0055;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-duration: 15s;
+        opacity: 0.3;
+      }
+
+      @keyframes floatOrb {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(30px, 50px) scale(1.1); }
+        100% { transform: translate(-20px, 30px) scale(0.9); }
+      }
+
+      /* --- 3. 3D GLASS CONTAINER --- */
+      .tilt-card {
+        width: 100%;
+        max-width: 520px;
+        background: var(--bg-card);
+        border-radius: var(--card-radius);
+        padding: 45px 40px;
         position: relative;
-      }
-
-      .logo {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        background: var(--gradient-primary);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        color: white;
+        transform-style: preserve-3d;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 
-          0 10px 30px rgba(102, 126, 234, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-        position: relative;
-        transform: perspective(1000px) rotateY(0deg);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          0 50px 100px -20px rgba(0, 0, 0, 0.8),
+          0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        transition: transform 0.1s ease-out; /* Smooth mouse follow */
       }
 
-      .logo:hover {
-        transform: perspective(1000px) rotateY(10deg) scale(1.05);
-        box-shadow: 
-          0 15px 40px rgba(102, 126, 234, 0.6),
-          0 0 0 1px rgba(255, 255, 255, 0.2);
-      }
-
-      .logo::after {
+      /* Holographic Shimmer Effect */
+      .tilt-card::before {
         content: '';
         position: absolute;
-        inset: 1px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 19px;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: var(--card-radius);
+        background: linear-gradient(125deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.1) 100%);
         z-index: 1;
+        pointer-events: none;
+        opacity: 0.6;
       }
 
-      .logo i {
-        z-index: 2;
+      .content-layer {
         position: relative;
+        z-index: 2;
+        transform: translateZ(30px); /* Lifts content off card */
       }
 
-      .title {
-        font-size: 28px;
-        font-weight: 800;
-        margin-bottom: 8px;
-        background: var(--gradient-primary);
+      /* --- 4. HEADER & LOGO --- */
+      .header {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+
+      .logo-container {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 25px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Animated spinning rings behind logo */
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: var(--neon-blue);
+        border-bottom-color: var(--neon-purple);
+        animation: spin 10s linear infinite;
+      }
+      .ring-1 { width: 100%; height: 100%; border-left: 2px solid var(--neon-blue); animation-duration: 8s; }
+      .ring-2 { width: 85%; height: 85%; border-right: 2px solid var(--neon-purple); animation-duration: 12s; animation-direction: reverse; }
+
+      .logo-icon {
+        font-size: 45px;
+        background: var(--primary-gradient);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        letter-spacing: -0.5px;
+        z-index: 5;
+        filter: drop-shadow(0 0 15px rgba(121, 40, 202, 0.5));
+        animation: pulseLogo 3s infinite ease-in-out;
       }
+
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes pulseLogo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+      h1 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #fff, #a5b4fc, #fff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 200% auto;
+        animation: shineText 5s linear infinite;
+      }
+
+      @keyframes shineText { to { background-position: 200% center; } }
 
       .subtitle {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 25px;
-        font-weight: 400;
-        letter-spacing: 0.3px;
+        font-size: 16px;
+        color: var(--text-dim);
+        letter-spacing: 1px;
+        text-transform: uppercase;
       }
 
-      .social-icons {
+      /* --- 5. SOCIAL ICONS --- */
+      .social-row {
         display: flex;
         justify-content: center;
-        gap: 15px;
-        margin-bottom: 25px;
+        gap: 20px;
+        margin-top: 25px;
       }
 
-      .social-icons a {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
+      .social-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
-        font-size: 18px;
+        color: white;
+        font-size: 20px;
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
       }
 
-      .social-icons a::before {
+      .social-btn::after {
         content: '';
         position: absolute;
-        inset: 0;
+        width: 100%; height: 100%;
         background: currentColor;
-        opacity: 0.1;
-        transition: opacity 0.3s ease;
+        top: 0; left: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: -1;
       }
 
-      .social-icons a.youtube {
-        color: #ff0000;
+      .social-btn:hover {
+        transform: translateY(-8px) scale(1.1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       }
-      .social-icons a.telegram {
-        color: #0088cc;
-      }
-      .social-icons a.whatsapp {
-        color: #25D366;
-      }
-      .social-icons a.github {
-        color: #ffffff;
+      .social-btn:hover::after { opacity: 0.2; }
+      .social-btn.youtube { color: #FF0000; }
+      .social-btn.telegram { color: #0088cc; }
+      .social-btn.whatsapp { color: #25D366; }
+      .social-btn.github { color: #ffffff; }
+
+      /* --- 6. TOGGLE SWITCH --- */
+      .mode-switch {
+        display: flex;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 50px;
+        padding: 6px;
+        margin: 30px 0;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .social-icons a:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        border-color: rgba(255, 255, 255, 0.2);
+      .mode-opt {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dim);
+        cursor: pointer;
+        z-index: 2;
+        transition: color 0.3s;
+        border-radius: 40px;
       }
 
-      .social-icons a:hover::before {
-        opacity: 0.15;
+      .mode-opt.active { color: #fff; }
+
+      .slider-bg {
+        position: absolute;
+        top: 6px; left: 6px;
+        height: calc(100% - 12px);
+        width: calc(50% - 6px);
+        background: var(--secondary-gradient);
+        border-radius: 40px;
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 4px 15px rgba(0, 124, 240, 0.4);
+        z-index: 1;
       }
 
-      /* Toggle Switch Styles */
-      .toggle-container {
+      /* --- 7. INPUTS & BUTTONS --- */
+      .input-wrapper {
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .input-wrapper.hidden { display: none; }
+
+      .custom-input {
+        width: 100%;
+        padding: 18px 25px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        color: white;
+        font-size: 18px;
+        font-family: 'Space Grotesk', sans-serif;
+        transition: all 0.3s;
+      }
+
+      .custom-input:focus {
+        border-color: var(--neon-blue);
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.15);
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .action-btn {
+        width: 100%;
+        padding: 20px;
+        background: var(--primary-gradient);
+        border: none;
+        border-radius: 18px;
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 10px 30px rgba(255, 0, 128, 0.3);
+      }
+
+      .action-btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: 0.5s;
+      }
+
+      .action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(255, 0, 128, 0.4);
+      }
+      .action-btn:hover::before { left: 100%; }
+      .action-btn.hidden { display: none; }
+
+      /* --- 8. RESULT DISPLAYS --- */
+      .result-area {
+        margin: 25px 0;
+        min-height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 25px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 16px;
-        padding: 4px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
-        position: relative;
       }
 
-      .toggle-option {
-        flex: 1;
-        padding: 14px 20px;
+      .code-box {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        padding: 25px;
         text-align: center;
-        cursor: pointer;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        z-index: 1;
-        color: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
+        font-family: 'Space Grotesk', monospace;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--neon-blue);
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        letter-spacing: 2px;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
       }
 
-      .toggle-option.active {
-        background: var(--gradient-primary);
-        color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      .qr-container {
+        display: none;
+        text-align: center;
+        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-
-      .toggle-option:not(.active):hover {
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .toggle-option i {
-        margin-right: 8px;
+      .qr-container img {
+        width: 240px;
+        height: 240px;
+        border-radius: 20px;
+        border: 5px solid white;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
       }
 
       .copy-btn {
         width: 100%;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        color: rgba(255, 255, 255, 0.8);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-        margin-top: 20px;
-      }
-
-      .copy-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        color: white;
-      }
-
-      .input-group {
-        margin-bottom: 25px;
-        transition: all 0.3s ease;
-      }
-
-      .input-group.hidden {
-        display: none;
-      }
-
-      .input-label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.5px;
-      }
-
-      .input-field {
-        width: 100%;
-        padding: 16px 20px;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--text-color);
-        font-size: 15px;
-        font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-      }
-
-      .input-field::placeholder {
-        color: rgba(255, 255, 255, 0.3);
-      }
-
-      .input-field:focus {
-        outline: none;
-        border-color: rgba(102, 126, 234, 0.5);
-        box-shadow: 
-          0 0 0 3px rgba(102, 126, 234, 0.1),
-          0 4px 20px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .generate-btn {
-        width: 100%;
-        padding: 18px;
-        background: var(--gradient-primary);
-        border: none;
-        border-radius: 16px;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-bottom: 20px;
-        letter-spacing: 0.5px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .generate-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: 0.5s;
-      }
-
-      .generate-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 
-          0 15px 40px rgba(102, 126, 234, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-      }
-
-      .generate-btn:hover::before {
-        left: 100%;
-      }
-
-      .generate-btn.hidden {
-        display: none;
-      }
-
-      .code-display {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 20px;
-        border-radius: 16px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        font-family: 'Courier New', monospace;
-        letter-spacing: 2px;
-        color: var(--success-color);
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .qr-display {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 30px;
-        border-radius: 16px;
-        text-align: center;
-        margin-bottom: 20px;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        display: none;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .qr-display::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--gradient-primary);
-        opacity: 0.05;
-        z-index: 0;
-      }
-
-      .qr-image {
-        max-width: 280px;
-        max-height: 280px;
-        margin: 0 auto 20px;
-        border-radius: 16px;
-        box-shadow: 
-          0 15px 35px rgba(0, 0, 0, 0.3),
-          0 0 0 1px rgba(255, 255, 255, 0.05);
-        position: relative;
-        z-index: 1;
-        background: white;
         padding: 15px;
-      }
-
-      .qr-instructions {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.6;
-        position: relative;
-        z-index: 1;
-      }
-
-      .success-message {
-        color: var(--success-color);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        color: var(--text-dim);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
         display: flex;
-        align-items: center;
         justify-content: center;
-        gap: 12px;
-        font-size: 18px;
-        text-shadow: 0 2px 10px rgba(74, 222, 128, 0.3);
+        align-items: center;
+        gap: 10px;
+      }
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
-      .error-message {
-        color: #ff6b6b;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        font-size: 16px;
-        text-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
-      }
-
-      .loading {
+      .loading-anim {
         display: none;
+      }
+      .loading-anim i {
+        font-size: 30px;
+        color: var(--neon-purple);
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+
+      /* --- 9. FOOTER --- */
+      .footer-text {
         text-align: center;
-        margin: 20px 0;
-      }
-
-      .loading i {
-        font-size: 28px;
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      .footer {
-        text-align: center;
-        margin-top: 25px;
+        margin-top: 30px;
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.4);
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 500;
       }
 
-      .footer p {
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-      }
-
-      .footer p:hover {
-        opacity: 1;
-      }
-
-      @media (max-width: 480px) {
-        .container {
-          padding: 25px;
-          border-radius: 20px;
-          max-width: 400px;
-        }
-
-        .code-display {
-          font-size: 17px;
-          min-height: 55px;
-          padding: 18px;
-        }
-
-        .qr-image {
-          max-width: 240px;
-          max-height: 240px;
-        }
-
-        .qr-display {
-          padding: 25px;
-        }
-
-        .logo {
-          width: 70px;
-          height: 70px;
-          border-radius: 18px;
-        }
-
-        .title {
-          font-size: 26px;
-        }
-      }
-
-      /* Subtle glow effect for container */
-      .container {
-        position: relative;
-      }
-
-      .container::after {
-        content: '';
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        right: -1px;
-        bottom: -1px;
-        background: var(--gradient-primary);
-        border-radius: 25px;
-        z-index: -1;
-        opacity: 0.1;
-        filter: blur(15px);
-      }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <div class="logo"><i class="fas fa-robot"></i></div>
-        <h1 class="title">MKMODZ-MD</h1>
-        <p class="subtitle">Link your WhatsApp device</p>
-        <div class="social-icons">
-          <a
-            href=""
-            target="https://whatsapp.com/channel/0029Vb7f4Wd7DAWv9jU7zW0m"
-            class="Whatsapp channel"
-            ><i class="fab fa-youtube"></i
-          ></a>
-          <a
-            href=""
-            target="@mkmodz-md"
-            class="telegram"
-            ><i class="fab fa-facebook"></i
-          ></a>
-          <a href="" target="_blank" class="whatsapp"
-            ><i class="fab fa-whatsapp"></i
-          ></a>
-          <a
-            href=""
-            target="https://github.com/Arslan-MD"
-            class="github"
-            ><i class="fab fa-github"></i
-          ></a>
+
+    <!-- Animated Background Layers -->
+    <div class="ambient-light">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- 3D Tilt Card -->
+    <div class="tilt-card" id="tiltCard">
+      <div class="content-layer">
+        
+        <div class="header">
+          <div class="logo-container">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <i class="fas fa-robot logo-icon"></i>
+          </div>
+          <h1>MKMODZ-MD</h1>
+          <p class="subtitle">Advanced Pairing System</p>
+          
+          <div class="social-row">
+            <a href="https://whatsapp.com/channel/0029Vb7f4Wd7DAWv9jU7zW0m" target="_blank" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/mkmodz-md" target="_blank" class="social-btn telegram"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://github.com/Arslan-MD" target="_blank" class="social-btn github"><i class="fab fa-github"></i></a>
+          </div>
         </div>
-      </div>
 
-      <!-- Toggle Switch -->
-      <div class="toggle-container">
-        <div class="toggle-option active" data-mode="pair">
-          <i class="fas fa-key"></i> Pair Code
+        <!-- Toggle Switch -->
+        <div class="mode-switch">
+          <div class="slider-bg" id="sliderBg"></div>
+          <div class="mode-opt active" data-mode="pair"><i class="fas fa-key"></i> Pair Code</div>
+          <div class="mode-opt" data-mode="qr"><i class="fas fa-qrcode"></i> QR Code</div>
         </div>
-        <div class="toggle-option" data-mode="qr">
-          <i class="fas fa-qrcode"></i> QR Code
+
+        <!-- Inputs -->
+        <div class="input-wrapper" id="inputGroup">
+          <input type="text" id="mobileNumber" class="custom-input" placeholder="+923xxxxxxxxx" />
         </div>
-      </div>
 
-      <div class="input-group" id="inputGroup">
-        <label class="input-label"
-          >Enter your WhatsApp number with country code</label
-        >
-        <input
-          type="text"
-          id="mobileNumber"
-          class="input-field"
-          placeholder="+92323838378"
-          pattern="[+][0-9]{10,}"
-          title="Please enter country code starting with + followed by number"
-        />
-      </div>
+        <button class="action-btn" id="submitBtn">
+          <i class="fas fa-bolt"></i> Generate Pair Code
+        </button>
 
-      <button class="generate-btn" id="submit">
-        <i class="fas fa-key"></i> Generate Pair Code
-      </button>
+        <!-- Loading & Results -->
+        <div class="result-area">
+          <div class="loading-anim" id="loading">
+            <i class="fas fa-circle-notch"></i>
+          </div>
 
-      <div class="loading" id="loading">
-        <i class="fas fa-spinner"></i>
-      </div>
+          <div class="code-box" id="codeDisplay">
+            Waiting for input...
+          </div>
 
-      <div class="code-display" id="codeDisplay">
-        Your pair code will appear here
-      </div>
-
-      <div class="qr-display" id="qrDisplay">
-        <img id="qrImage" class="qr-image" src="" alt="QR Code" />
-        <div class="qr-instructions" id="qrInstructions">
-          Scan this QR code with your WhatsApp app
+          <div class="qr-container" id="qrDisplay">
+            <img id="qrImage" src="" alt="QR Code">
+            <p style="color:#fff; margin-top:10px; font-size:14px;">Scan to Connect</p>
+          </div>
         </div>
-      </div>
 
-      <button class="copy-btn" id="copy" onclick="copyCode()">
-        <i class="fas fa-copy"></i> Copy Code
-      </button>
+        <button class="copy-btn" id="copyBtn" onclick="copyCode()">
+          <i class="far fa-copy"></i> Copy Code
+        </button>
 
-      <div class="footer">
-        <p>© 2026 MKMODZ-MD. All rights reserved.</p>
+        <div class="footer-text">
+          <p>© 2026 MKMODZ-MD • NEXT-GEN EDITION</p>
+        </div>
+
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
     <script>
-      let currentMode = "pair";
+      // --- 1. 3D Tilt Effect Logic ---
+      const card = document.getElementById('tiltCard');
+      const content = document.querySelector('.content-layer');
 
-      // Toggle functionality
-      document.querySelectorAll(".toggle-option").forEach((option) => {
+      document.addEventListener('mousemove', (e) => {
+        if(window.innerWidth < 768) return; // Disable on mobile
+
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+
+      // Reset on mouse leave
+      document.addEventListener('mouseleave', () => {
+        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      });
+
+      // --- 2. App Logic ---
+      let currentMode = "pair";
+      const sliderBg = document.getElementById("sliderBg");
+      const inputGroup = document.getElementById("inputGroup");
+      const submitBtn = document.getElementById("submitBtn");
+      const codeDisplay = document.getElementById("codeDisplay");
+      const qrDisplay = document.getElementById("qrDisplay");
+      const loading = document.getElementById("loading");
+
+      // Toggle Switch Handling
+      document.querySelectorAll(".mode-opt").forEach((option) => {
         option.addEventListener("click", function () {
           const mode = this.dataset.mode;
           if (mode === currentMode) return;
 
-          // Update active state
-          document
-            .querySelectorAll(".toggle-option")
-            .forEach((opt) => opt.classList.remove("active"));
+          // Update Active State
+          document.querySelectorAll(".mode-opt").forEach((opt) => opt.classList.remove("active"));
           this.classList.add("active");
 
-          // Update mode
+          // Slide Background
+          if (mode === "pair") {
+            sliderBg.style.transform = "translateX(0%)";
+          } else {
+            sliderBg.style.transform = "translateX(100%)";
+          }
+
           currentMode = mode;
 
-          // Update button and input visibility
-          const submitBtn = document.getElementById("submit");
-          const inputGroup = document.getElementById("inputGroup");
-
+          // Logic Switch
           if (mode === "pair") {
-            submitBtn.innerHTML =
-              '<i class="fas fa-key"></i> Generate Pair Code';
+            submitBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate Pair Code';
             submitBtn.classList.remove("hidden");
             inputGroup.classList.remove("hidden");
+            inputGroup.style.display = "block";
           } else {
             submitBtn.classList.add("hidden");
             inputGroup.classList.add("hidden");
-            // Auto-generate QR code when QR mode is selected
-            generateQRCode();
+            inputGroup.style.display = "none";
+            getQRCode();
           }
 
-          // Clear displays
-          document.getElementById("codeDisplay").innerHTML =
-            "Your pair code will appear here";
-          document.getElementById("qrDisplay").style.display = "none";
-          document.getElementById("codeDisplay").style.display = "flex";
+          // Reset UI
+          resetUI();
         });
       });
 
-      async function generateQRCode() {
-        const codeDisplay = document.getElementById("codeDisplay");
-        const qrDisplay = document.getElementById("qrDisplay");
-        const loadingSpinner = document.getElementById("loading");
+      function resetUI() {
+        codeDisplay.style.display = "block";
+        codeDisplay.innerText = currentMode === "pair" ? "Waiting for input..." : "";
+        qrDisplay.style.display = "none";
+      }
 
-        loadingSpinner.style.display = "block";
-        codeDisplay.innerHTML = "";
+      // QR Code Logic
+      async function getQRCode() {
+        loading.style.display = "block";
+        codeDisplay.style.display = "none";
         qrDisplay.style.display = "none";
 
         try {
           const response = await axios("/qr");
-
           if (response.data.qr) {
             document.getElementById("qrImage").src = response.data.qr;
-            document.getElementById("qrInstructions").innerHTML =
-              response.data.instructions.join("<br>");
+            loading.style.display = "none";
             qrDisplay.style.display = "block";
-            codeDisplay.style.display = "none";
           } else {
-            codeDisplay.innerHTML =
-              '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to generate QR code</div>';
-            codeDisplay.style.display = "flex";
+            throw new Error("No QR");
           }
         } catch (error) {
-          console.error("Error generating QR code:", error);
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating QR code. Please try again.</div>';
-          codeDisplay.style.display = "flex";
-        } finally {
-          loadingSpinner.style.display = "none";
+          loading.style.display = "none";
+          codeDisplay.innerText = "Error Loading QR";
+          codeDisplay.style.color = "var(--neon-purple)";
+          codeDisplay.style.display = "block";
         }
       }
 
-      document.getElementById("submit").addEventListener("click", async (e) => {
+      // Pair Code Logic
+      submitBtn.addEventListener("click", async (e) => {
         e.preventDefault();
+        const number = document.getElementById("mobileNumber").value.replace(/[^0-9]/g, "");
 
-        const mobileNumberInput = document.getElementById("mobileNumber");
-        const codeDisplay = document.getElementById("codeDisplay");
-        const qrDisplay = document.getElementById("qrDisplay");
-        const loadingSpinner = document.getElementById("loading");
-
-        const mobileNumber = mobileNumberInput.value.trim();
-        if (!mobileNumber) {
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
+        if (!number) {
+          codeDisplay.innerText = "Please enter number!";
+          codeDisplay.style.color = "#ff4b4b";
           return;
         }
 
-        loadingSpinner.style.display = "block";
-        codeDisplay.innerHTML = "";
+        loading.style.display = "block";
+        codeDisplay.style.display = "none";
         qrDisplay.style.display = "none";
 
         try {
-          const response = await axios(
-            `/pair?number=${mobileNumber.replace(/[^0-9]/g, "")}`,
-          );
+          const response = await axios(`/pair?number=${number}`);
+          const code = response.data.code;
 
-          const code = response.data.code || "Service Unavailable";
-          if (code === "Service Unavailable") {
-            codeDisplay.innerHTML =
-              '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
+          loading.style.display = "none";
+          
+          if (code && code !== "Service Unavailable") {
+            codeDisplay.innerText = code;
+            codeDisplay.style.color = "var(--neon-blue)";
           } else {
-            codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
+            codeDisplay.innerText = "Service Down";
+            codeDisplay.style.color = "#ff4b4b";
           }
-          codeDisplay.style.display = "flex";
+          codeDisplay.style.display = "block";
         } catch (error) {
-          console.error("Error generating code:", error);
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
-          codeDisplay.style.display = "flex";
-        } finally {
-          loadingSpinner.style.display = "none";
+          loading.style.display = "none";
+          codeDisplay.innerText = "Network Error";
+          codeDisplay.style.color = "#ff4b4b";
+          codeDisplay.style.display = "block";
         }
       });
+
+      // Copy Logic
       function copyCode() {
-        const codeDisplay = document.getElementById("codeDisplay").innerText;
-        const code = codeDisplay.replace("CODE: ", "");
-        navigator.clipboard
-          .writeText(code)
-          .then(() => {
-            const copyBtn = document.getElementById("copy");
-            const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => {
-              copyBtn.innerHTML = originalText;
-            }, 2000);
-          })
-          .catch((err) => {
-            console.error("Failed to copy text: ", err);
-          });
+        const text = codeDisplay.innerText;
+        if (!text || text === "Waiting for input..." || text.includes("Error")) return;
+
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.getElementById("copyBtn");
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          btn.style.color = "var(--neon-blue)";
+          btn.style.borderColor = "var(--neon-blue)";
+          setTimeout(() => {
+            btn.innerHTML = original;
+            btn.style.color = "";
+            btn.style.borderColor = "";
+          }, 2000);
+        });
       }
     </script>
   </body>
